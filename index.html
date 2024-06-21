@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar Chart with D3</title>
+    <title>SVG Container</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .bar:hover {
+            fill: orange;
+        }
+    </style>
 </head>
 <body>
     <script>
         // Sample data points
-        const dataPoints = [100, 420, 230, 850, 560, 925]; 
+        const dataPoints = [1, 2, 3, 4, 5]; // Replace with your actual data points
         const barHeight = 20;
         const margin = 1;
         
@@ -20,7 +26,7 @@
         svg.setAttribute("width", 500);
         svg.setAttribute("height", svgHeight);
         document.body.appendChild(svg);
-
+        
         // Define the linear scale for the x-axis
         const xScale = d3.scaleLinear()
                          .domain([d3.min(dataPoints), d3.max(dataPoints)])
@@ -32,19 +38,28 @@
             g.setAttribute("transform", `translate(0, ${i * (barHeight + margin)})`);
 
             const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            rect.setAttribute("width", xScale(d));
+            rect.setAttribute("width", 0); // Start with width 0 for animation
             rect.setAttribute("height", barHeight);
             rect.setAttribute("fill", "steelblue");
+            rect.classList.add("bar");
 
             const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            text.setAttribute("x", xScale(d) + 5);
+            text.setAttribute("x", xScale(d) - 5);
             text.setAttribute("y", barHeight / 2);
             text.setAttribute("dy", ".35em");
+            text.setAttribute("text-anchor", "end");
+            text.setAttribute("fill", "white");
             text.textContent = d;
 
             g.appendChild(rect);
             g.appendChild(text);
             svg.appendChild(g);
+
+            // Animate the bars' growth from left to right
+            d3.select(rect)
+              .transition()
+              .duration(1000)
+              .attr("width", xScale(d));
         });
     </script>
 </body>
