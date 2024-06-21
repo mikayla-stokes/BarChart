@@ -25,6 +25,27 @@
         const xScale = d3.scaleLinear()
                          .domain([d3.min(dataPoints), d3.max(dataPoints)])
                          .range([50, 500]);
+
+        // Create <g> elements for each data point
+        dataPoints.forEach((d, i) => {
+            const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            g.setAttribute("transform", `translate(0, ${i * (barHeight + margin)})`);
+
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("width", xScale(d));
+            rect.setAttribute("height", barHeight);
+            rect.setAttribute("fill", "steelblue");
+
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", xScale(d) + 5);
+            text.setAttribute("y", barHeight / 2);
+            text.setAttribute("dy", ".35em");
+            text.textContent = d;
+
+            g.appendChild(rect);
+            g.appendChild(text);
+            svg.appendChild(g);
+        });
     </script>
 </body>
 </html>
