@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart with D3</title>
+</head>
+<body>
+    <script>
+        // Sample data points
+        const dataPoints = [100, 420, 230, 850, 560, 925]; 
+        const barHeight = 20;
+        const margin = 1;
+        
+        // Calculate height based on the number of data points
+        const svgHeight = dataPoints.length * (barHeight + margin);
+        
+        // Append SVG container to the body
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", 500);
+        svg.setAttribute("height", svgHeight);
+        document.body.appendChild(svg);
+    </script>
+</body>
+</html>
