@@ -20,6 +20,11 @@
         svg.setAttribute("width", 500);
         svg.setAttribute("height", svgHeight);
         document.body.appendChild(svg);
+
+        // Define the linear scale for the x-axis
+        const xScale = d3.scaleLinear()
+                         .domain([d3.min(dataPoints), d3.max(dataPoints)])
+                         .range([50, 500]);
     </script>
 </body>
 </html>
